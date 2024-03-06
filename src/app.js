@@ -3,11 +3,21 @@
 const express = require('express');
 const { port } = require('./src/config/environment');
 const { loadModules } = require('./src/services/moduleManager');
-
+const preprocessor = require('./src/lib/preprocessor');
+const databaseService = require('./src/services/databaseService');
 const app = express();
 
 // Middleware setup
 app.use(express.json());
+
+ // Example of using the preprocessor
+preprocessor.processFile('./path/to/your/file');
+
+// Example endpoint using the database service
+app.get('/data', (req, res) => {
+  const dbData = databaseService.getDatabase();
+  res.json(dbData);
+});
 
 // Load modules
 loadModules();
